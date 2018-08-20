@@ -1,4 +1,6 @@
 from pathlib import Path
+import shutil
+import subprocess
 import uuid
 
 from pythonanywhere.api import Webapp
@@ -38,6 +40,12 @@ class Project:
                     project_path=self.project_path
                 )
             )
+
+
+    def download_repo(self, repo, nuke):
+        if nuke and self.project_path.exists():
+            shutil.rmtree(str(self.project_path))
+        subprocess.check_call(['git', 'clone', repo, str(self.project_path)])
 
 
     def create_webapp(self, nuke):

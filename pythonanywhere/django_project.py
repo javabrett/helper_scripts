@@ -10,12 +10,6 @@ from .project import Project
 
 class DjangoProject(Project):
 
-    def download_repo(self, repo, nuke):
-        if nuke and self.project_path.exists():
-            shutil.rmtree(str(self.project_path))
-        subprocess.check_call(['git', 'clone', repo, str(self.project_path)])
-
-
     def create_virtualenv(self, django_version=None, nuke=False):
         self.virtualenv.create(nuke=nuke)
         if django_version is None:

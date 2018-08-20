@@ -7,7 +7,7 @@
 - sets up a default static files mapping for /static -> ~/domain.com/static
 
 Usage:
-  pa_create_webapp_with_virtualenv.py [--domain=<domain> --python=<python-version>] [--nuke]
+  pa_create_webapp_with_virtualenv.py <git-repo-url> [--domain=<domain> --python=<python-version>] [--nuke]
 
 Options:
   --domain=<domain>         Domain name, eg www.mydomain.com   [default: your-username.pythonanywhere.com]
@@ -30,6 +30,7 @@ def main(domain, python_version, nuke):
 
     project = Project(domain, python_version)
     project.sanity_checks(nuke=nuke)
+    project.download_repo(repo_url, nuke=nuke)
     project.virtualenv.create(nuke=nuke)
     project.create_webapp(nuke=nuke)
     project.add_static_file_mappings()
